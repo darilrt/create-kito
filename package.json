@@ -9,13 +9,20 @@
     "create-kitojs": "./dist/index.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "bin",
+    "template"
   ],
   "scripts": {
     "build": "tsc",
     "dev": "npm run build && node ./dist/index.js",
     "prepublishOnly": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kitojs/kito.git"
+  },
+  "homepage": "https://github.com/kitojs/create-kitojs/blob/master/README.md",
   "keywords": [
     "kitojs",
     "scaffold",
@@ -24,7 +31,6 @@
     "template"
   ],
   "devDependencies": {
-    "@kitojs/types": "^1.0.0-alpha.4",
     "@types/node": "^24.10.1",
     "@types/prompts": "^2.4.9",
     "mri": "^1.2.0",
