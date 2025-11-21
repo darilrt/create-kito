@@ -74,6 +74,74 @@ function detectPackageManager(): string {
   return "npm";
 }
 
+function getPackageManagerCommands(pkgManager: string) {
+  const commands: Record<
+    string,
+    { install: string; run: string; exec: string }
+  > = {
+    npm: { install: "npm install", run: "npm run", exec: "npx" },
+    pnpm: { install: "pnpm install", run: "pnpm", exec: "pnpm dlx" },
+    yarn: { install: "yarn", run: "yarn", exec: "yarn dlx" },
+    bun: { install: "bun install", run: "bun", exec: "bunx" },
+    deno: { install: "deno install", run: "deno task", exec: "deno run" },
+  };
+
+  return commands[pkgManager] || commands.npm;
+}
+
+function generateReadme(pkgManager: string): string {
+  const cmds = getPackageManagerCommands(pkgManager);
+
+  return `# Kito Project
+
+The high-performance, type-safe and modern TypeScript web framework written in Rust.
+
+## 🚀 Getting Started
+
+### Development
+
+Start the development server with hot reload:
+
+\`\`\`bash
+${cmds?.run} dev
+\`\`\`
+
+The server will start at \`http://localhost:3000\`
+
+### Build
+
+Compile TypeScript to JavaScript:
+
+\`\`\`bash
+${cmds?.run} build
+\`\`\`
+
+### Production
+
+Run the compiled application:
+
+\`\`\`bash
+${cmds?.run} start
+\`\`\`
+
+## 📁 Project Structure
+
+\`\`\`
+.
+├── src/
+│   └── index.ts      # Main application entry point
+├── dist/             # Compiled output (generated)
+├── package.json
+└── tsconfig.json
+\`\`\`
+
+## 📖 Learn More
+
+- [Kito Documentation](https://kito.pages.dev)
+- [GitHub Repository](https://github.com/kitojs/kito)
+`;
+}
+
 interface Template {
   name: string;
   value: string;
@@ -210,6 +278,15 @@ async function createProject(projectName: string) {
 
     await new Promise((resolve) => setTimeout(resolve, 300));
 
+    const pkgManager = detectPackageManager();
+    spinner.text = "Generating README.md...";
+
+    const readmeContent = generateReadme(pkgManager);
+    const readmePath = path.join(projectName, "README.md");
+    fs.writeFileSync(readmePath, readmeContent);
+
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
     spinner.succeed(
       `${successColor("✓")} Project "${chalk.bold(projectName)}" created successfully!`,
     );
@@ -292,7 +369,7 @@ function printNextSteps(
   );
   console.log(
     chalk.dim(
-      `  🐛 Issues: ${chalk.underline("https://github.com/kitojs/kitojs/issues")}`,
+      `  🐛 Issues: ${chalk.underline("https://github.com/kitojs/kito/issues")}`,
     ),
   );
   console.log(`\n${kitoGradient("  Happy coding! ✨")}\n`);
