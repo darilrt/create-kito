@@ -1,31 +1,70 @@
+<img src="https://github.com/kitojs/.github/blob/1461ad6c9d6eb7f952c3fbd3a6ed3c21dd78eebb/assets/kito-logo.png" width="200px" align="right" />
+
 # create-kitojs
 
-## Scaffold for KitoJS projects.
+Scaffold [Kito](https://github.com/kitojs/kito) projects with style. Fast, modern, and beautiful CLI for bootstrapping your next web server.
 
-**With NPM:**
+---
 
+## ✨ Features
+
+- 🎨 Beautiful CLI with colors and animations
+- ⚡ Multiple runtime support (Node.js, Bun, Deno)
+- 📦 Automatic package manager detection
+- 🔧 TypeScript configured out of the box
+- 🚀 Hot reload for development
+
+---
+
+## 🚀 Get started
+
+Create a new Kito project with your favorite package manager:
+
+**With npm:**
 ```bash
 npm create kitojs@latest
 ```
 
-**With PNPM:**
-
+**With pnpm:**
 ```bash
 pnpm create kitojs
 ```
 
-**With bun:**
+**With yarn:**
+```bash
+yarn create kitojs
+```
 
+**With bun:**
 ```bash
 bun create kitojs
 ```
 
-You can also use the following command to scaffold a KitoJS project without prompting for options:
-
+**With deno:**
 ```bash
-npm create kitojs my-kito-project -- --template bun
+deno init --npm kitojs
 ```
 
-The template option can be one of the following:
-- `nodejs`
-- `bun`
+### Quick start with options
+
+Skip the prompts by providing a project name and template:
+
+```bash
+npm create kitojs my-app -- --template bun
+```
+
+---
+
+### Available templates
+
+- `nodejs` - Standard Node.js runtime with TypeScript
+- `bun` - Blazing fast JavaScript runtime
+- `deno` - A modern runtime for JavaScript and TypeScript
+
+---
+
+## 📄 License
+
+Licensed under the [MIT License](./license).
+
+---
